@@ -33,7 +33,9 @@ body{
     height: 100%;
     width: 75%;
     padding: 20px 20px 0 20px;
-    font-size: xx-large;
+    font-size: 40px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 #keyboard{
     display: flex;

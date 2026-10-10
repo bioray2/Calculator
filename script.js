@@ -1,5 +1,5 @@
 function isNumber(value){
-    return value >= "0" && value <= "9";
+    return value >= "0" && value <= "9" && value.length === 1;
 }
 
 function clear(){
@@ -7,19 +7,25 @@ function clear(){
     operator = "";
     modifier = "";
     finalNumber = "";
-    output.textContent = 0;
+    output.textContent = "0";
 }
 
 function equals(x, y){
     switch(operator){
         case "/":
-            return x / y;
+            if(Number(y) === 0){
+                clear();
+                return "0";
+            }
+            else{            
+                return x / y;
+            }
         case "*":
             return x * y;
         case "-":
             return x - y;
         case "+":
-            return x + y;
+            return Number(x) + Number(y);
     }
 }
 
@@ -80,6 +86,8 @@ function calculate(){
             }
         }
 
+        
+
         // handles other buttons
         switch(input1){
             case "AC":
@@ -95,20 +103,16 @@ function calculate(){
                 percent();
                 break;
             case "/":
-                operator = "/";
-                output.textContent = finalNumber + "/";
-                break;
             case "*":
-                operator = "*";
-                output.textContent = finalNumber + "*";
-                break;
             case "+":
-                operator = "+";
-                output.textContent = finalNumber + "+";
-                break;
             case "-":
-                operator = "-";
-                output.textContent = finalNumber + "-";
+                if(operator !== "" && modifier !== ""){
+                    finalNumber = equals(finalNumber, modifier)
+                    output.textContent = finalNumber;
+                    modifier = "";
+                }
+                operator = input1;
+                output.textContent = finalNumber + operator;
                 break;
             case "=":
                 finalNumber = equals(finalNumber, modifier);
